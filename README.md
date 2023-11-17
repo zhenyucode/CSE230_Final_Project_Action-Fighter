@@ -28,7 +28,8 @@ Every time you face new challenges, be quick with your reactions and make smart 
 
 
 ### Game Image
-<img width="400" alt="e4e54eb9f1fd80ed8b848a2efdcc1db" src="https://github.com/zhenyucode/CSE230_Final_Project_Action-Fighter/assets/104359013/790548ff-70ca-483b-91e5-e3296656fb53">
+<img width="128" alt="e4e54eb9f1fd80ed8b848a2efdcc1db" src="https://github.com/zhenyucode/CSE230_Final_Project_Action-Fighter/assets/104359013/c7341681-4dae-48ce-93c7-37b9fcee71d9">
+
 
 ### Link to the online game demo
 https://www.retrogames.cz/play_1533-SegaMS.php
