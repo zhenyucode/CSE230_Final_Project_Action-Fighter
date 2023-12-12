@@ -1,0 +1,7 @@
+resolver: lts-21.21
+flags: {}
+packages:
+  - '.'
+extra-deps: []
+allow-newer: true
+compiler: ghc-9.4.7
