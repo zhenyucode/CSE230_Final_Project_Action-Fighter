@@ -92,4 +92,53 @@ handleEvent _                                     = do
                                                       g <- get
                                                       put g
 
--- TODO: Update game state
+updateState :: Game -> Game
+updateState g@(Game li0 li1 l s d p0 p1 sh e esh cst) = if 
+                                          dead g || null (enemyList (enemies g)) then g
+                                        else 
+                                          do
+
+
+   -- Generating new enemy shots based on current game state
+  let newEnemyShot = attackEnemyNewShot g
+
+  -- Updating the positions of enemy shots as they move downwards
+  let enemyShotMove = updateShots newEnemyShot D
+
+  -- Updating the positions of player shots as they move upwards
+  let newPlayerShots = updateShots sh U
+
+  -- Refreshing enemy positions and states for this game tick
+  let newEnemy = updateEnemy g
+
+  -- Adjusting enemy positions post player shot impacts
+  let newEnemy' = updateEnemyAfterShots newEnemy newPlayerShots
+
+  -- Calculating the new score by comparing the number of enemies before and after the update
+  let newscore = updateScore l s newEnemy newEnemy'
+
+  -- Updating player 0 lives based on collisions with enemy shots and direct attacks
+  let newLives0 = updateLives0 g p0 esh (attackEnemy e)
+
+    -- Updating player 1 lives based on collisions with enemy shots and direct attacks
+  let newLives1 = updateLives1 g p1 esh (attackEnemy e)
+
+  -- Filtering out player shots that are out of bounds or hit targets
+  let newShots = handleShots (Game li0 li1 l s d p0 p1 sh newEnemy enemyShotMove cst) newPlayerShots
+  
+  -- Check if lives are depleted, indicating the player's defeat
+  let newDead = li0 == 0 || li1 == 0 
+
+  -- Determining if the current level is cleared by checking if any enemies remain
+  let updateNewLevel = null (enemyList newEnemy') && (length (attackEnemy newEnemy') < length (attackEnemy e))
+
+  -- Level up if all enemies are cleared, else continue the current game state with updated parameters
+  -- if updateNewLevel 
+  --   then
+  --     game (score g) 10 10 (getLevel (levelNumber (level g) + 1))
+  --   else
+  --     Game newLives0 newLives1 l newscore newDead p0 p1 newShots newEnemy' enemyShotMove (cst+1)
+  -- Game newLives0 newLives1 l newscore newDead p0 p1 newShots newEnemy' enemyShotMove (cst+1)
+  if not updateNewLevel 
+     then Game newLives0 newLives1 l newscore newDead p0 p1 newShots newEnemy' enemyShotMove (cst+1)
+     else g
