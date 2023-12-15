@@ -101,16 +101,12 @@ drawCell PlayerShotCell = withAttr playerShotAttr $ str " ||"
 drawCell EnemyShotCell  = withAttr enemyShotAttr $ str " * "
 drawCell Tree = withAttr treeAttr $ str "▄▀▄"
 
-enemyShotAttr, playerShotAttr, gameOverAttr, emptyAttr, playershipAttr, enemyAttr :: AttrName
+enemyShotAttr, playerShotAttr, gameOverAttr, emptyAttr, playershipAttr, enemyAttr, curbAttr, treeAttr :: AttrName
 gameOverAttr = attrName "gameOver"
 emptyAttr = attrName "emptyAttr"
 playershipAttr = attrName "playershipAttr"
 enemyAttr = attrName "enemyAttr"
 playerShotAttr  = attrName "playerShotAttr"
 enemyShotAttr   = attrName "enemyShotAttr"
-
-roadAttr, roadStripeAttr, curbAttr :: AttrName
-roadAttr = attrName "roadAttr"
-roadStripeAttr = attrName "roadStripeAttr"
 curbAttr = attrName "curbAttr"
 treeAttr = attrName "treeAttr"

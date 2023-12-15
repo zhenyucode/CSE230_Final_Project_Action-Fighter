@@ -6,7 +6,7 @@ type Name = ()
 data Tick = Tick
 
 -- This section defines the game's core data structures
-data Cell = EmptyCell | PlayershipCell | EnemyCell | PlayerShotCell | EnemyShotCell | Road | RoadWithStripe | Curb | Tree
+data Cell = EmptyCell | PlayershipCell | EnemyCell | PlayerShotCell | EnemyShotCell | Curb | Tree
 type Coord = V2 Int
 type Playership = Coord
 
