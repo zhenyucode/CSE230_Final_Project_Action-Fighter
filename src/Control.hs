@@ -44,7 +44,6 @@ continue g = if ((null (enemyList (enemies g))) && (null (attackEnemy (enemies g
              else g
   
 
--- | Add new shot from the motor to the game
 shoot0 :: Game -> Game
 shoot0 g = if dead g || length s >= lShots l || ((null (enemyList (enemies g))) && (null (attackEnemy (enemies g))))  then g
   else g {playerShots = n:s, curstep=0}
@@ -83,17 +82,16 @@ getNewEnemyState (Game _ _ (Level _ af sf) _ _ (V2 px _) _  _ (Enemies el f op a
                               
                                           then error "No Enemy!"
                                           else do
-                                            -- update both frequency counter
+                                            
                                             let f'  = frequencyCounter f af
                                             let s'  = frequencyCounter s sf
-                                            -- update patched positions 
+                                            
                                             let op' = getNewEnemyStateMove op (el++op)
                                             let el' = getNewEnemyStateMove el (el++op)
-                                            -- pick new attack enemy
+                                            
                                             let es' = pickNewAttacker (Enemies el' f' op' ae s')
-                                            -- attack enemy moves
                                             let es''= updateAttackMove px es'
-                                            -- return finished enemy
+                                    
                                             returnFinishedAttack es''
 
 getNewEnemyStateAfterShots :: Enemies -> [Coord] -> Enemies
@@ -101,7 +99,6 @@ getNewEnemyStateAfterShots es@(Enemies el _ _ ae sf) shotsNew = if null (el++ae)
                                     then error "No Enemy!"
                                     else do
                                       let el_ = moveAndKillV (enemyList es) shotsNew
-                                      -- let ae_ = moveAndKillV (attackEnemy es) shotsNew
                                       let ae_ = moveAndKillV2 (attackEnemy es) shotsNew
                                       let es' = Enemies el_ (countdown es) (origPosition es) ae_ sf
                                       es'
@@ -114,9 +111,7 @@ updateEenemyShot (Game _ _ _ _ _ _ _ _ (Enemies _ _ _ ae s) esh _)
     if s /= 0 then esh
       else esh ++ map getCoordMinus ae
 
--- coord :: Coord
---     , edead :: Bool
---     , direc :: Direction
+
 moveAndKillV :: [Enemy] -> [Coord] -> [Enemy]
 
 moveAndKillV a s = [x | x <- a', True /= edead x] 
@@ -149,24 +144,22 @@ pickNewAttacker es@(Enemies el f op ae sf)
 updateAttackMove :: Int -> Enemies -> Enemies
 updateAttackMove px es@(Enemies _ f _ ae sf)
   = do
-    -- put back returning attack enemy that arrives original patch
+    
     let idx = returnEnemyAtBottom ae 0 (enemyHeight+1)
     let (Enemies el' _ op' ae' _) = backToOriginalPosition idx es
     -- update movement
     Enemies el' f op' (map (horizontalMove . moveEnemy D) ae') sf
     where
-      horizontalMove e@(E (V2 ex ey) _ _) = do
-        -- on the way returning to original position
+      horizontalMove e@(E (V2 ex ey) _ _) = do  
         if ey-1 > enemyHeight
           then moveEnemy D e
-            -- on the way attacking player
             else if ex < px
               then moveEnemy R e
               else if ex > px
                 then moveEnemy L e
                 else e
 
--- Put back attack enemy to original position
+-- Back to original position if out of bounds
 backToOriginalPosition :: Int -> Enemies -> Enemies
 backToOriginalPosition idx es@(Enemies el f op ae sf)
   = if idx == -1 then es
@@ -177,7 +170,7 @@ backToOriginalPosition idx es@(Enemies el f op ae sf)
         let op' = removeEnemy idx op
         Enemies el' f op' ae' sf
 
--- Return the index of attack enemy at the bottom else -1
+
 returnEnemyAtBottom :: [Enemy] -> Int -> Int -> Int
 returnEnemyAtBottom [] _ _ = -1
 returnEnemyAtBottom ((E (V2 _ y) _ _): as) idx y_val
@@ -191,7 +184,7 @@ removeEnemy idx el = case splitAt idx el of
     (lhs, _:rhs) -> lhs ++ rhs
     (lhs, [])    -> lhs
 
--- Return the bottom-reached enemy back to the top
+
 returnFinishedAttack :: Enemies -> Enemies
 returnFinishedAttack es@(Enemies el f op ae sf)
   = do
@@ -204,15 +197,12 @@ returnFinishedAttack es@(Enemies el f op ae sf)
         Enemies el f op ae' sf
 
 
-
-
 -- Update attack frequency
 frequencyCounter :: Int -> Int -> Int
 frequencyCounter currFreq freq
   | currFreq > 0     = currFreq - 1
   | otherwise = freq
 
--- Update e1 according to e2 boundary enemies
 getNewEnemyStateMove :: [Enemy] -> [Enemy] -> [Enemy]
 getNewEnemyStateMove e1 e2 = do
                     let (E (V2 lx _) _ _) = minimum e2

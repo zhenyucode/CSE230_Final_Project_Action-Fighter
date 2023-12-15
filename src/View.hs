@@ -23,16 +23,21 @@ drawApp g =
 
 drawStats :: Game -> Widget Name
 drawStats g = hLimit 20
-  $ vBox [(drawScore $ score g) g,  padTop (Pad 3) $ drawGameOver (dead g),  padTop (Pad 6) $ drawGameLevelUp(((null (enemyList (enemies g))) && (null (attackEnemy (enemies g)))) )]
+  $ vBox [(drawScore $ score g) g,  padTop (Pad 3) $ drawGameOver (dead g),  padTop (Pad 6) $ drawGameLevelUp(((null (enemyList (enemies g))) && (null (attackEnemy (enemies g)))))]
 
 drawScore :: Int -> Game -> Widget Name
 drawScore n g = withBorderStyle BS.unicodeBold
-  $ B.borderWithLabel (str ("Level " ++ show (levelNumber (level g))))
+  $ B.borderWithLabel (str ("Level " ++ show (levelNumber (level g))))  
   $ C.hCenter
   $ padAll 1
+  -- $ (str "enemyList: " <+> str (show (length (enemyList (enemies g))))) <=> (str "attack: " <+> str (show (length (attackEnemy (enemies g)))))
   $ (str "Score: " <+> str (show n)) <=> (str "P0 Lives: " <+> str (show li0)) <=> (str "P1 Lives: " <+> str (show li1))
     where li0 = if lives0 g > 0 then lives0 g else 0
           li1 = if lives1 g > 0 then lives1 g else 0
+  
+-- drawEnemyList :: Game -> Widget Name
+-- drawEnemyList g = withBorderStyle BS.unicodeBold
+--   $ (str "enemyList: " <+> str (show (length (enemyList (enemies g))))) <=> (str "attackEnemyList: " <+> str (show (length (attackEnemy (enemies g)))))
 
 drawGameOver :: Bool -> Widget Name
 drawGameOver isDead =

@@ -111,7 +111,7 @@ initGame = do
 getLevel :: Int -> Level
 getLevel n = Level { levelNumber = n
                   , attackFrequency = max 5 (30 - 2 * n) -- Decreases with level but never goes below 5
-                  , lShots = 3   
+                  , lShots = 5   
                   }
 
 -- Initialize screen size

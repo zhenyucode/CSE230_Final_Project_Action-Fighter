@@ -129,15 +129,5 @@ updateState g@(Game li0 li1 l s d p0 p1 sh e esh cst) = if
   -- Check if lives are depleted, indicating the player's defeat
   let newDead = li0 == 0 || li1 == 0 
 
-  -- Determining if the current level is cleared by checking if any enemies remain
-  let updateNewLevel = null (enemyList newEnemy') && (length (attackEnemy newEnemy') < length (attackEnemy e))
-
- 
-  if not updateNewLevel 
-     then Game newLives0 newLives1 l newscore newDead p0 p1 newShots newEnemy' enemyShotMove (cst+1)
-     else g
-
-  -- Game newLives0 newLives1 l newscore newDead p0 p1 newShots newEnemy' enemyShotMove (cst+1)
-
-
-  -- ((null (enemyList (enemies g))) && (null (attackEnemy (enemies g))))
+  
+  Game newLives0 newLives1 l newscore newDead p0 p1 newShots newEnemy' enemyShotMove (cst+1)
