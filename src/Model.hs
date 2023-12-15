@@ -6,7 +6,7 @@ type Name = ()
 data Tick = Tick
 
 -- This section defines the game's core data structures
-data Cell = EmptyCell | PlayershipCell | EnemyCell | PlayerShotCell | EnemyShotCell | Curb | Tree
+data Cell = EmptyCell | PlayershipCell | PlayershipCell1 |EnemyCell | PlayerShotCell | EnemyShotCell | Curb | Tree
 type Coord = V2 Int
 type Playership = Coord
 
@@ -107,7 +107,7 @@ updateShots s R = map (\(V2 x y) -> (V2 (x+1) y)) s
 initGame :: IO Game
 initGame = do
             let l = getLevel 0
-            return $ game 0 10 10 l
+            return $ game 0 5 5 l
 
 getLevel :: Int -> Level
 getLevel n = Level { levelNumber = n

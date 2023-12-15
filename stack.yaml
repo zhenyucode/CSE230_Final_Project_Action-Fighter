@@ -4,4 +4,4 @@ packages:
   - '.'
 extra-deps: []
 allow-newer: true
-compiler: ghc-9.4.7
+compiler: ghc-9.4.8
