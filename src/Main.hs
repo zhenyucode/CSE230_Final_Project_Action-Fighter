@@ -100,7 +100,7 @@ updateState g@(Game li0 li1 l s d p0 p1 sh e esh cst) = if
 
 
    -- Generating new enemy shots based on current game state
-  let newEnemyShot = attackEnemyNewShot g
+  let newEnemyShot = updateEenemyShot g
 
   -- Updating the positions of enemy shots as they move downwards
   let enemyShotMove = updateShots newEnemyShot D
@@ -109,10 +109,10 @@ updateState g@(Game li0 li1 l s d p0 p1 sh e esh cst) = if
   let newPlayerShots = updateShots sh U
 
   -- Refreshing enemy positions and states for this game tick
-  let newEnemy = updateEnemy g
+  let newEnemy = getNewEnemyState g
 
   -- Adjusting enemy positions post player shot impacts
-  let newEnemy' = updateEnemyAfterShots newEnemy newPlayerShots
+  let newEnemy' = getNewEnemyStateAfterShots newEnemy newPlayerShots
 
   -- Calculating the new score by comparing the number of enemies before and after the update
   let newscore = updateScore l s newEnemy newEnemy'
@@ -124,7 +124,7 @@ updateState g@(Game li0 li1 l s d p0 p1 sh e esh cst) = if
   let newLives1 = updateLives1 g p1 esh (attackEnemy e)
 
   -- Filtering out player shots that are out of bounds or hit targets
-  let newShots = handleShots (Game li0 li1 l s d p0 p1 sh newEnemy enemyShotMove cst) newPlayerShots
+  let newShots = shotHandler (Game li0 li1 l s d p0 p1 sh newEnemy enemyShotMove cst) newPlayerShots
   
   -- Check if lives are depleted, indicating the player's defeat
   let newDead = li0 == 0 || li1 == 0 

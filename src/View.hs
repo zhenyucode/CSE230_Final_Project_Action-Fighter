@@ -81,6 +81,36 @@ treeEvenCoords:: Int -> [Coord]
 treeEvenCoords x = [V2 x y| y<-[1..40], even y]
 
 
--- TODO： attribute configuration and drawCell function
+attributeMap :: AttrMap
+attributeMap = attrMap V.defAttr
+  [ (playershipAttr, fg V.white `V.withBackColor` V.brightBlue),
+  (curbAttr, fg V.brightBlack `V.withStyle` V.bold),
+   (playerShotAttr, fg V.yellow  `V.withStyle` V.bold),
+    (enemyShotAttr,  fg V.magenta `V.withStyle` V.bold),
+    (enemyAttr, fg V.red `V.withStyle` V.bold),
+    (treeAttr, fg V.green), 
+    (gameOverAttr, fg V.red `V.withStyle` V.bold)
+  ]
 
--- drawCell :: Cell -> Widget Name
+drawCell :: Cell -> Widget Name
+drawCell PlayershipCell = withAttr playershipAttr $ str "▄▀▄" <=> str "█▓█"
+drawCell Curb = withAttr curbAttr $ str "\x2592" 
+drawCell EnemyCell = withAttr enemyAttr $ str "═>═"
+drawCell EmptyCell = withAttr emptyAttr $ str "   " <=> str "   "
+drawCell PlayerShotCell = withAttr playerShotAttr $ str " ||"
+drawCell EnemyShotCell  = withAttr enemyShotAttr $ str " * "
+drawCell Tree = withAttr treeAttr $ str "▄▀▄"
+
+enemyShotAttr, playerShotAttr, gameOverAttr, emptyAttr, playershipAttr, enemyAttr :: AttrName
+gameOverAttr = attrName "gameOver"
+emptyAttr = attrName "emptyAttr"
+playershipAttr = attrName "playershipAttr"
+enemyAttr = attrName "enemyAttr"
+playerShotAttr  = attrName "playerShotAttr"
+enemyShotAttr   = attrName "enemyShotAttr"
+
+roadAttr, roadStripeAttr, curbAttr :: AttrName
+roadAttr = attrName "roadAttr"
+roadStripeAttr = attrName "roadStripeAttr"
+curbAttr = attrName "curbAttr"
+treeAttr = attrName "treeAttr"
