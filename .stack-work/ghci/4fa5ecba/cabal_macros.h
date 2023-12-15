@@ -71,15 +71,15 @@
   (major1) == 5 && (major2) == 38 && (minor) <= 0)
 #endif /* MIN_VERSION_vty */
 
-/* tool gcc-8 */
+/* tool gcc-15.0.0 */
 #ifndef TOOL_VERSION_gcc
-#define TOOL_VERSION_gcc "8"
+#define TOOL_VERSION_gcc "15.0.0"
 #endif /* TOOL_VERSION_gcc */
 #ifndef MIN_TOOL_VERSION_gcc
 #define MIN_TOOL_VERSION_gcc(major1,major2,minor) (\
-  (major1) <  8 || \
-  (major1) == 8 && (major2) <  0 || \
-  (major1) == 8 && (major2) == 0 && (minor) <= 0)
+  (major1) <  15 || \
+  (major1) == 15 && (major2) <  0 || \
+  (major1) == 15 && (major2) == 0 && (minor) <= 0)
 #endif /* MIN_TOOL_VERSION_gcc */
 /* tool ghc-9.4.8 */
 #ifndef TOOL_VERSION_ghc
@@ -131,15 +131,15 @@
   (major1) == 0 && (major2) <  68 || \
   (major1) == 0 && (major2) == 68 && (minor) <= 8)
 #endif /* MIN_TOOL_VERSION_hsc2hs */
-/* tool pkg-config-0.29 */
+/* tool pkg-config-0.29.2 */
 #ifndef TOOL_VERSION_pkg_config
-#define TOOL_VERSION_pkg_config "0.29"
+#define TOOL_VERSION_pkg_config "0.29.2"
 #endif /* TOOL_VERSION_pkg_config */
 #ifndef MIN_TOOL_VERSION_pkg_config
 #define MIN_TOOL_VERSION_pkg_config(major1,major2,minor) (\
   (major1) <  0 || \
   (major1) == 0 && (major2) <  29 || \
-  (major1) == 0 && (major2) == 29 && (minor) <= 0)
+  (major1) == 0 && (major2) == 29 && (minor) <= 2)
 #endif /* MIN_TOOL_VERSION_pkg_config */
 /* tool runghc-9.4.8 */
 #ifndef TOOL_VERSION_runghc
@@ -151,16 +151,6 @@
   (major1) == 9 && (major2) <  4 || \
   (major1) == 9 && (major2) == 4 && (minor) <= 8)
 #endif /* MIN_TOOL_VERSION_runghc */
-/* tool strip-2.31 */
-#ifndef TOOL_VERSION_strip
-#define TOOL_VERSION_strip "2.31"
-#endif /* TOOL_VERSION_strip */
-#ifndef MIN_TOOL_VERSION_strip
-#define MIN_TOOL_VERSION_strip(major1,major2,minor) (\
-  (major1) <  2 || \
-  (major1) == 2 && (major2) <  31 || \
-  (major1) == 2 && (major2) == 31 && (minor) <= 0)
-#endif /* MIN_TOOL_VERSION_strip */
 
 #ifndef CURRENT_COMPONENT_ID
 #define CURRENT_COMPONENT_ID "action-fighter-0.1.0.0-JZp9ZDVb9XpGQJAHwYbKxH-action-fighter"
@@ -168,3 +158,6 @@
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.1.0.0"
 #endif /* CURRENT_PACKAGE_VERSION */
+
+#undef CURRENT_PACKAGE_KEY
+#undef CURRENT_COMPONENT_ID

@@ -1,4 +1,3 @@
-
 module Model where
 import Linear.V2 (V2(..))
 

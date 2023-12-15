@@ -6,7 +6,7 @@ import Control.Lens ((^.))
 
 
 move0 :: (Int -> Int) -> (Int -> Int) -> Game -> Game
-move0 fx fy g = if dead g || null (enemyList (enemies g)) then g
+move0 fx fy g = if dead g || ((null (enemyList (enemies g))) && (null (attackEnemy (enemies g))))  then g
                else g {playership0 = V2 newX newY}
   where 
     playershipCoord = playership0 g
@@ -15,7 +15,7 @@ move0 fx fy g = if dead g || null (enemyList (enemies g)) then g
     newY = adjustNewY (fy (playershipCoord ^. _y)) 
 
 move1 :: (Int -> Int) -> (Int -> Int) -> Game -> Game
-move1 fx fy g = if dead g || null (enemyList (enemies g)) then g
+move1 fx fy g = if dead g || ((null (enemyList (enemies g))) && (null (attackEnemy (enemies g))))  then g
                else g {playership1 = V2 newX newY}
   where 
     playershipCoord = playership1 g
@@ -37,23 +37,23 @@ adjustNewY newY
 
 -- | Restart game
 restart :: Game -> Game
-restart _ = game 0 10 10 (getLevel 0)
+restart _ = game 0 5 5 (getLevel 0)
 
 continue :: Game -> Game
-continue g = if null (enemyList (enemies g)) then game (score g) 10 10 (getLevel (levelNumber (level g) + 1))
+continue g = if ((null (enemyList (enemies g))) && (null (attackEnemy (enemies g))))  then game (score g) (lives0 g) (lives1 g) (getLevel (levelNumber (level g) + 1))
              else g
   
 
 -- | Add new shot from the motor to the game
 shoot0 :: Game -> Game
-shoot0 g = if dead g || length s >= lShots l || null (enemyList (enemies g)) then g
+shoot0 g = if dead g || length s >= lShots l || ((null (enemyList (enemies g))) && (null (attackEnemy (enemies g))))  then g
   else g {playerShots = n:s, curstep=0}
     where s = playerShots g
           n = fmap (\(V2 x y)  -> V2 x (y + 1)) playership0 g
           l = level g
 
 shoot1 :: Game -> Game
-shoot1 g = if dead g || length s >= lShots l || null (enemyList (enemies g)) then g
+shoot1 g = if dead g || length s >= lShots l || ((null (enemyList (enemies g))) && (null (attackEnemy (enemies g))))  then g
   else g {playerShots = n:s, curstep=0}
     where s = playerShots g
           n = fmap (\(V2 x y)  -> V2 x (y + 1)) playership1 g
@@ -151,7 +151,7 @@ updateAttackMove px es@(Enemies _ f _ ae sf)
   = do
     -- put back returning attack enemy that arrives original patch
     let idx = returnEnemyAtBottom ae 0 (enemyHeight+1)
-    let (Enemies el' _ op' ae' _) = backToOrginalPosition idx es
+    let (Enemies el' _ op' ae' _) = backToOriginalPosition idx es
     -- update movement
     Enemies el' f op' (map (horizontalMove . moveEnemy D) ae') sf
     where
@@ -167,8 +167,8 @@ updateAttackMove px es@(Enemies _ f _ ae sf)
                 else e
 
 -- Put back attack enemy to original position
-backToOrginalPosition :: Int -> Enemies -> Enemies
-backToOrginalPosition idx es@(Enemies el f op ae sf)
+backToOriginalPosition :: Int -> Enemies -> Enemies
+backToOriginalPosition idx es@(Enemies el f op ae sf)
   = if idx == -1 then es
       else do
         let op_ = op!!idx

@@ -23,7 +23,7 @@ drawApp g =
 
 drawStats :: Game -> Widget Name
 drawStats g = hLimit 20
-  $ vBox [(drawScore $ score g) g,  padTop (Pad 3) $ drawGameOver (dead g),  padTop (Pad 6) $ drawGameLevelUp(null (enemyList (enemies g)))]
+  $ vBox [(drawScore $ score g) g,  padTop (Pad 3) $ drawGameOver (dead g),  padTop (Pad 6) $ drawGameLevelUp(((null (enemyList (enemies g))) && (null (attackEnemy (enemies g)))) )]
 
 drawScore :: Int -> Game -> Widget Name
 drawScore n g = withBorderStyle BS.unicodeBold
