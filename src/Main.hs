@@ -132,13 +132,7 @@ updateState g@(Game li0 li1 l s d p0 p1 sh e esh cst) = if
   -- Determining if the current level is cleared by checking if any enemies remain
   let updateNewLevel = null (enemyList newEnemy') && (length (attackEnemy newEnemy') < length (attackEnemy e))
 
-  -- Level up if all enemies are cleared, else continue the current game state with updated parameters
-  -- if updateNewLevel 
-  --   then
-  --     game (score g) 10 10 (getLevel (levelNumber (level g) + 1))
-  --   else
-  --     Game newLives0 newLives1 l newscore newDead p0 p1 newShots newEnemy' enemyShotMove (cst+1)
-  -- Game newLives0 newLives1 l newscore newDead p0 p1 newShots newEnemy' enemyShotMove (cst+1)
+ 
   if not updateNewLevel 
      then Game newLives0 newLives1 l newscore newDead p0 p1 newShots newEnemy' enemyShotMove (cst+1)
      else g
