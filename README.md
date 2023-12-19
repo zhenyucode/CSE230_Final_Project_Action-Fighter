@@ -62,4 +62,22 @@ So far, we have encountered a few challenges:
 
 - If unforeseen challenges arise, we may streamline some of the advanced features, such as reducing the complexity of enemy AI, to ensure the game is completed on time. However, our primary focus remains on delivering a complete and engaging game experience without compromising core functionalities.
 
+### 5. Acknowledgment
 
+In developing 'Action Fighter', our team got inspiration of how to use Brick library from a variety of existing projects, We extend our acknowledgment to the following projects for their influence:
+[Dino-Brick](https://github.com/arcticmatt/dino-brick/tree/dino),
+[Galaxian](https://github.com/ashybot/cse230-galaxian),
+[2048Haskell](https://github.com/8Gitbrix/2048Haskell).
+These projects provided us with valuable insights and served as a source of inspiration in terms of design ideas and coding approaches. However, it's important to note that 'Action Fighter' is an independent endeavor. Our game is the result of original thinking, innovative design, and dedicated programming by our team. We ensured that our creative process remained unique. We thank the creators of these projects for their contributions to the community, which indirectly supported our journey towards creating something new and exciting.
+
+The following are distinctive features of our project:
+
+- Innovative UI Design: In our 'Action Fighter' game, we've innovated with a road-like interface, confining both enemy and players within a road and enhancing visuals with roadside trees for a more engaging experience. We also solve the problem of lines not being straight by making sure all characters used for drawing the cells have same width.
+
+- Two-Player Mode: Unlike many traditional arcade games, "Action Fighter" is designed for two players, promoting collaboration. Each player has individual controls, adding a layer of cooperative strategy to the game. Especially, when either player dies, the game will be over so that they can restart the game.
+
+- Intuitive Control Scheme: The game employs a simple yet effective control system. Player 0 uses the 'WASD' keys for movement and the 'Space' key to shoot, while Player 1 navigates with the arrow keys and fires with the '.' key. This accessibility ensures a quick learning curve and immediate enjoyment.
+
+- Interactive Leveling-Up Experience: In "Action Fighter", upon defeating all enemies, the game momentarily pauses. To advance to the next level, a player must actively choose to continue by pressing the 'y' key. This interactive mechanism not only makes players acutely aware of their progression but also puts them in control of the pace, adding an extra layer of engagement to the gaming experience.
+
+- Smooth Game Flow with Score and Lives Carried Over: In 'Action Fighter,' the game keeps your score and lives as you move to the next level. This way, you can smoothly go from one level to the next, keeping your progress and planning your next moves. The game makes it easy to restart (press 'R') and quit when it's game over. Players decide when to level up, adding to the fun and challenge of the game.
